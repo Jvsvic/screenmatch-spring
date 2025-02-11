@@ -1,17 +1,51 @@
 package br.com.alura.screenmatch_spring.model;
 
 import br.com.alura.screenmatch_spring.service.ConsultaGemini;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+
+@Entity
+@Table(name = "series")
 public class Serie {
+    @Id // cria uma chave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true) // deixa a tabela titulo unica
     private String titulo;
     private Integer totalTemporadas;
     private Double avaliacao;
+    @Enumerated(EnumType.STRING) //cria uma lista de opcoes tipo string
     private Categoria genero;
     private String atores;
     private String poster;
     private String sinopse;
+    @Transient //ignora por enquanto
+    private List<Episodio> episodios = new ArrayList<>();
+
+    public Serie() {
+
+    }
+
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();

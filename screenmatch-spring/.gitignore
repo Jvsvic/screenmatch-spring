@@ -1,0 +1,5 @@
+# Ignora arquivos de configuração específicos de ambiente
+.env
+*.env
+application.properties
+application.yml
